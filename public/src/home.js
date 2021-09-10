@@ -19,6 +19,14 @@ let returnedBooks=books.filter((book)=>book.borrows[0].returned===false)
  return returnedBooks.length;
 }
 
+function topFive(array){
+  const newArray=[]
+  for (let i=0; i<5;i++){
+    newArray.push(array[i])
+  }
+  return newArray;
+}
+
 function getMostCommonGenres(books) {
   let bookGenres=books.map((book)=>book.genre);
   bookGenres.sort((nameA,nameB)=>
@@ -38,15 +46,7 @@ function getMostCommonGenres(books) {
      
    }
   genreObjects.sort((genreA, genreB)=>(genreA.count>genreB.count ? -1 : 1));
-      
-  let topFive=[];
-  for(let i=0; i<5;i++){
-    topFive.push(genreObjects[i])
-  }
-  
-  console.log(genreObjects)
-   console.log(topFive)
-  return topFive;
+ return topFive(genreObjects)
   }
      
   
@@ -56,12 +56,10 @@ function getMostCommonGenres(books) {
 
 function getMostPopularBooks(books) {
   let orderedBooks=books.sort((bookA, bookB)=>(bookA.borrows.length>bookB.borrows.length ? -1 : 1));
-  let orderedLimitedBooks=[]
- for(let i=0;i<5;i++){
-   orderedLimitedBooks.push(orderedBooks[i])
-    }
+  let orderedLimitedBooks=topFive(orderedBooks)
+
   const topFiveList=orderedLimitedBooks.map((book)=>book.title)
-  // console.log(topFiveList);
+  console.log(topFiveList);
   const topFiveListObjects=[];
    for(let i=0;i<5;i++){
      const newBook={
